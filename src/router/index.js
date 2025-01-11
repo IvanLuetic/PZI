@@ -23,14 +23,19 @@ const router = createRouter({
       component: Login,
     },
     {
-      path: '/sign',
+      path: '/sign_document',
       name: 'SignDocument',
       component: () => import('../views/SignDocument.vue'),
     },
     {
-      path: '/profile',
+      path: '/user/',
       name: 'UserProfile',
       component: () => import('../views/UserProfile.vue'),
+    },
+    {
+      path: '/user/settings',
+      name: 'ProfileSettings',
+      component: () => import('../views/ProfileSettings.vue'),
     },
   ],
 })

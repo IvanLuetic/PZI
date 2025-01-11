@@ -27,7 +27,18 @@
         />
 
         <div class="button-container">
-          <router-link to="/sign" class="no-underline"
+          <router-link v-if="!user" to="/register" class="no-underline"
+            ><button class="custom-button">
+              Get started
+              <i
+                class="mdi mdi-arrow-right"
+                :style="{ fontSize: '30px', marginLeft: '3px', marginTop: '1px' }"
+              ></i>
+            </button>
+          </router-link>
+        </div>
+        <div class="button-container">
+          <router-link v-if="user" to="/SignDocument" class="no-underline"
             ><button class="custom-button">
               Get started
               <i
@@ -40,26 +51,22 @@
       </div>
     </v-col>
   </v-row>
-  <v-container>
-    <v-row>
-      <v-col cols="12" class="d-flex justify-center align-center">
-        <h2>How it works</h2>
-      </v-col>
-    </v-row>
-  </v-container>
 
   <v-container id="about">
     <v-row>
-      <v-col cols="12" class="d-flex justify-center align-center">
-        <p>
-          <b>1. Upload Your Document </b><br />
+      <v-col cols="12" class="d-flex flex-column justify-center align-center">
+        <h2>How it works</h2>
+        <p class="custom-border">
+          <b>1. Upload Your Document </b> <v-icon> mdi-file-document-arrow-right-outline</v-icon
+          ><br />
           Drag and drop or select the file you want to sign from your device. We accept a variety of
           file types, including PDF, JPG, and DOCX. <br />
-          <b>2. Authenticate and Sign</b><br />Once the document is uploaded, our app uses PGP
-          encryption to add a unique digital signature. This cryptographic signature ensures that
-          the document is valid and hasn't been altered. <br />
-          <b>3. Download Your Signed Document</b><br />After signing, download the document with
-          your secure digital signature. It’s ready for sharing or official use.
+          <b>2. Authenticate and Sign</b> <v-icon>mdi-file-document-edit</v-icon><br />Once the
+          document is uploaded, our app uses PGP encryption to add a unique digital signature. This
+          cryptographic signature ensures that the document is valid and hasn't been altered. <br />
+          <b>3. Download Your Signed Document</b> <v-icon>mdi-text-box-check</v-icon><br />After
+          signing, download the document with your secure digital signature. It’s ready for sharing
+          or official use.
         </p>
       </v-col>
     </v-row>
@@ -67,12 +74,14 @@
 
   <v-container>
     <v-row>
-      <v-col cols="12" md="5" class="d-flex justify-center" style="margin-top: 32px">
-        <v-icon class="icon-responsive" color="black">mdi-lock-outline</v-icon>
+      <v-col cols="12" md="5" class="d-flex justify-center">
+        <div class="image-container"><img src="@/assets/images/key.png" class="key" /></div>
       </v-col>
       <v-col cols="12" md="7" class="d-flex flex-column justify-center align-center">
-        <h2 class="heading"><b>Why use our digital signature app?</b></h2>
-        <ul style="margin-top: 16px">
+        <h2>
+          <b>Why use our digital signature app?</b>
+        </h2>
+        <ul style="margin-bottom: 15%">
           <li>
             <b>Secure and legally binding</b>
             <p>
@@ -100,10 +109,19 @@
   </v-container>
 </template>
 
+<script setup>
+import { useUserStore } from '../stores/userStore.js'
+import { storeToRefs } from 'pinia'
+
+const userStore = useUserStore()
+
+const { user } = storeToRefs(userStore)
+</script>
+
 <style scoped>
 .image-container {
   margin-top: 32px;
-  margin-bottom: 32px;
+
   position: relative;
   width: 100%;
   height: 500px;
@@ -116,7 +134,7 @@
   width: 100%;
   height: 100%;
   margin: 0;
-  filter: blur(5px);
+  filter: blur(6px);
   object-fit: cover;
 }
 
@@ -139,21 +157,40 @@
 }
 
 .heading {
-  margin-bottom: 20px;
+  margin-bottom: 5%;
   text-align: center;
   width: 100%;
 }
 
 .icon-responsive {
-  font-size: 300px; /* Default size */
+  font-size: 300px;
+  margin-top: 16px;
+  margin-right: 40px;
+  transform: scaleX(1.1);
+}
+.custom-border {
+  border: 1px solid black;
+  padding: 20px;
+}
+.key {
+  width: 100%;
+  height: 80%;
+  mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 100%);
+  border-radius: 10px;
 }
 
 @media (max-width: 600px) {
+  .h1 {
+    max-width: 50vw;
+  }
   .icon-responsive {
-    font-size: 200px;
-    height: 50%;
-    margin-top: 25px;
-    margin-bottom: -70px;
+    font-size: 100px;
+    margin-top: -10%;
+    margin-bottom: -10%;
+    margin-right: 0px;
+  }
+  .image-container {
+    height: 50vh;
   }
 }
 </style>

@@ -4,23 +4,23 @@
       <v-row align="center">
         <v-col>
           <router-link to="/" class="no-underline" @click.native="scrollToTop"
-            ><v-toolbar-title>My Application</v-toolbar-title></router-link
+            ><v-toolbar-title>Placeholder name</v-toolbar-title></router-link
           >
         </v-col>
         <v-spacer></v-spacer>
 
         <v-col class="d-none d-sm-flex" sm="auto">
           <a href="#about" class="no-underline"> <v-btn>About</v-btn> </a>
-          <router-link v-if="!isAuthenticated" :to="'/login'" class="no-underline">
+          <router-link v-if="!user" :to="'/login'" class="no-underline">
             <v-btn>Log in</v-btn>
           </router-link>
 
-          <v-btn v-else @click="logout"> Log out </v-btn>
-          <v-btn v-if="isAuthenticated">
+          <v-btn v-else @click="userStore.logout"> Log out </v-btn>
+          <v-btn v-if="user">
             Profile
             <v-icon left>mdi-account</v-icon>
           </v-btn>
-          <router-link to="/register" v-else><v-btn> Register </v-btn></router-link>
+          <router-link to="/register" v-if="!user"> <v-btn> Register </v-btn></router-link>
         </v-col>
 
         <v-col class="d-flex d-sm-none justify-end">
@@ -39,21 +39,21 @@
           <v-list-item-title>About</v-list-item-title>
         </a>
       </v-list-item>
-      <v-list-item v-if="!isAuthenticated">
+      <v-list-item v-if="!user">
         <router-link :to="'/login'" class="no-underline">
           <v-list-item-title>Log in</v-list-item-title>
         </router-link>
       </v-list-item>
-      <v-list-item v-else @click="logout">
+      <v-list-item v-else @click="userStore.logout">
         <v-list-item-title>Log out</v-list-item-title>
       </v-list-item>
-      <v-list-item v-if="isAuthenticated">
+      <v-list-item v-if="user">
         <v-list-item-title>
           Profile
           <v-icon left>mdi-account</v-icon>
         </v-list-item-title>
       </v-list-item>
-      <v-list-item v-else>
+      <v-list-item v-if="!user">
         <router-link to="/register" class="no-underline">
           <v-list-item-title>Register</v-list-item-title>
         </router-link>
@@ -64,8 +64,11 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useUserStore } from '../stores/userStore.js'
+import { storeToRefs } from 'pinia'
 
-const isAuthenticated = ref(false)
+const userStore = useUserStore()
+
 const drawer = ref(false)
 
 const scrollToTop = () => {
@@ -74,6 +77,8 @@ const scrollToTop = () => {
     behavior: 'smooth',
   })
 }
+
+const { user } = storeToRefs(userStore)
 </script>
 
 <style scoped>

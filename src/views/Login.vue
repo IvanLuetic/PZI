@@ -1,6 +1,24 @@
 <template>
-  <v-container class="d-flex justify-center align-center" style="height: 100vh">
-    <v-card class="pa-8" width="400" elevation="10" style="background-color: white">
+  <div
+    class="text-center m3"
+    v-show="loading"
+    style="position: absolute; top: 90px; left: 50%; transform: translateX(-50%)"
+  >
+    <v-progress-circular indeterminate color="primary" />
+  </div>
+  <v-container class="d-flex align-center justify-center" style="height: 100vh">
+    <v-card
+      class="pa-5 mx-auto"
+      :height="height"
+      :width="width"
+      elevation="10"
+      style="
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      "
+    >
       <v-card-title class="text-h5 text-center font-weight-bold">Log in</v-card-title>
 
       <Form @submit="onSubmit" :validation-schema="schema">
@@ -9,6 +27,7 @@
             <Field name="username" v-slot="{ field, errors }">
               <v-text-field
                 v-bind="field"
+                value="testuser"
                 label="Username"
                 outlined
                 dense
@@ -22,6 +41,7 @@
               <v-text-field
                 v-bind="field"
                 label="Password"
+                value="password123"
                 type="password"
                 outlined
                 dense
@@ -43,16 +63,55 @@
         <router-link to="/register">Register </router-link>
       </div>
     </v-card>
-    <v-snackbar v-model="snackbar" :timeout="2000" color="green" top>
-      Registration successful!
+    <v-snackbar v-model="snackbar" :timeout="2000" :color="errorMessage ? 'error' : 'success'" top>
+      {{ errorMessage ? errorMessage : 'Log in successful!' }}
     </v-snackbar>
   </v-container>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Field, Form } from 'vee-validate'
 import * as yup from 'yup'
+import { useUserStore } from '../stores/userStore.js'
+import { storeToRefs } from 'pinia'
+import { useDisplay } from 'vuetify'
+
+const { name } = useDisplay()
+const height = computed(() => {
+  switch (name.value) {
+    case 'xs':
+      return '60vh'
+    case 'sm':
+      return '50vh'
+    case 'md':
+      return '60vh'
+    case 'lg':
+      return '50vh'
+    case 'xl':
+      return '50vh'
+    case 'xxl':
+      return '40vh'
+  }
+})
+const width = computed(() => {
+  switch (name.value) {
+    case 'xs':
+      return '100vw'
+    case 'sm':
+      return '80vw'
+    case 'md':
+      return '50vw'
+    case 'lg':
+      return '30vw'
+    case 'xl':
+      return '25vw'
+    case 'xxl':
+      return '25vw'
+  }
+})
+
+const userStore = useUserStore()
 
 const snackbar = ref(false)
 const schema = yup.object({
@@ -62,11 +121,19 @@ const schema = yup.object({
     .required('Password is required'),
 })
 
-function onSubmit(values, { resetForm }) {
-  console.log(values)
+async function onSubmit(values, { resetForm }) {
+  await userStore.login(values.username, values.password)
+
+  if (errorMessage) {
+    console.log(userStore.errorMessage)
+    snackbar.value = true
+  } else {
+    snackbar.value = true
+  }
   resetForm()
-  snackbar.value = true
 }
+
+const { errorMessage, loading } = storeToRefs(userStore)
 </script>
 
 <style scoped>

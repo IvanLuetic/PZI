@@ -1,6 +1,9 @@
 html,
 body {
-  background: linear-gradient(to bottom, #5dc1f0, #20aaf4);
+  /* background: linear-gradient(to right, #5dc1f0, #20aaf4); */
+  background: linear-gradient(45deg, #fafafa, #d6d6d6);
+
+  font-size: 1rem;
 }
 
 h1,
@@ -14,19 +17,20 @@ h6 {
 
 h1 {
   text-align: center;
-  margin-top: 32px;
+  margin-top: 322px;
   font-size: 3rem;
   line-height: 1.2;
   color: rgb(16, 16, 17);
-  max-width: 500px;
+  max-width: 30vw;
 }
 h2 {
   text-align: center;
-  margin-top: 32px;
+  margin-top: 16px;
+  margin-bottom: 3%;
   font-size: 2.2rem;
   line-height: 1.2;
   color: rgb(16, 16, 17);
-  max-width: 500px;
+  max-width: 30vw;
 }
 
 h3 {
@@ -45,11 +49,11 @@ h3 {
 .custom-button {
   background-color: #326ee7;
   color: #e7e7e7;
-  border-radius: 25px;
+  border-radius: 322px;
   height: 80px;
-  width: 250px;
+  width: 2500px;
   font-size: 1.5rem;
-  border: 1.56px solid #242424;
+  border: 1.5px solid #242424;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,28 +68,102 @@ h3 {
   cursor: pointer;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin-top: 0px;
+    max-width: 90vw;
+  }
+  h2 {
+    font-size: 1.7rem;
+    max-width: 90vw;
   }
   h3 {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     margin-top: -20px;
   }
   .custom-button {
-    background-color: #326ee7;
-    color: #e7e7e7;
-    border-radius: 25px;
-    height: 60px;
-    width: 200px;
+    width: 50vw;
     font-size: 1.5rem;
-    border: 1.56px solid #242424;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-transform: none;
-    cursor: pointer;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  body {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 600px) {
+  h1 {
+    font-size: 2.7rem;
+    margin-top: 0px;
+    max-width: 90vw;
+  }
+  h2 {
+    font-size: 2.3rem;
+    max-width: 90vw;
+  }
+  h3 {
+    font-size: 1.8rem;
+    margin-top: -20px;
+  }
+  .custom-button {
+    width: 40vw;
+    font-size: 1.8rem;
+  }
+  body {
+    font-size: 1.6rem;
+  }
+}
+@media (min-width: 767px) {
+  h1 {
+    font-size: 3.3rem;
+
+    max-width: 70vw;
+  }
+  h2 {
+    font-size: 2.5rem;
+
+    max-width: 60vw;
+  }
+
+  h3 {
+    font-size: 2rem;
+
+    max-width: 80vw;
+  }
+
+  .custom-button {
+    font-size: 2.5rem;
+    width: 40vw;
+    height: 10vh;
+  }
+  body {
+    font-size: 2.1rem;
+  }
+}
+@media (min-width: 992px) {
+  h1 {
+    font-size: 3rem;
+
+    max-width: 30vw;
+  }
+  h2 {
+    font-size: 2.2rem;
+
+    max-width: 30vw;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+
+    max-width: 550px;
+  }
+
+  .custom-button {
+    font-size: 1.5rem;
+    width: 16vw;
+    height: 12vh;
+  }
+  body {
+    font-size: 1rem;
   }
 }

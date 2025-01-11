@@ -1,7 +1,11 @@
 <template>
-  <!-- <div class="text-left">
-    <router-link to="/" color="#326ee7" class="no-underline"> Home </router-link>
-  </div> -->
+  <div
+    class="text-center m3"
+    v-show="loading"
+    style="position: absolute; top: 90px; left: 50%; transform: translateX(-50%)"
+  >
+    <v-progress-circular indeterminate color="primary" />
+  </div>
 
   <v-container class="d-flex justify-center align-center" style="height: calc(100vh - 56px)">
     <v-card class="pa-8" width="400" elevation="10" style="background-color: white">
@@ -59,8 +63,8 @@
         <router-link to="/login" class="text-decoration-underline">Log in</router-link>
       </div>
     </v-card>
-    <v-snackbar v-model="snackbar" :timeout="2000" color="green" top>
-      Registration successful!
+    <v-snackbar v-model="snackbar" :timeout="2000" color="error" top>
+      {{ errorMessage }}
     </v-snackbar>
   </v-container>
 </template>
@@ -69,9 +73,16 @@
 import { ref } from 'vue'
 import { Field, Form } from 'vee-validate'
 import * as yup from 'yup'
+import { useUserStore } from '../stores/userStore.js'
+import { storeToRefs } from 'pinia'
+
+const userStore = useUserStore()
 
 const schema = yup.object({
-  username: yup.string().required('Username is required'),
+  username: yup
+    .string()
+    .required('Username is required')
+    .min(3, 'Username must be over 3 characters'),
   email: yup.string().email('Not a vaid email').required('Email is required'),
   password: yup
     .string()
@@ -81,11 +92,17 @@ const schema = yup.object({
 
 const snackbar = ref(false)
 
-function onSubmit(values, { resetForm }) {
-  console.log(values)
+async function onSubmit(values, { resetForm }) {
+  await userStore.register(values.username, values.password)
+
+  if (errorMessage) {
+    console.log(userStore.errorMessage)
+    snackbar.value = true
+  }
   resetForm()
-  snackbar.value = true
 }
+
+const { errorMessage, loading } = storeToRefs(userStore)
 </script>
 
 <style scoped>
