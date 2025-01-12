@@ -1,12 +1,4 @@
 <template>
-  <div
-    class="text-center m3"
-    v-show="loading"
-    style="position: absolute; top: 90px; left: 50%; transform: translateX(-50%)"
-  >
-    <v-progress-circular indeterminate color="primary" />
-  </div>
-
   <v-container class="d-flex justify-center align-center" style="height: calc(100vh - 56px)">
     <v-card class="pa-8" width="400" elevation="10" style="background-color: white">
       <v-card-title class="text-h5 text-center font-weight-bold">Register</v-card-title>
@@ -109,5 +101,6 @@ const { errorMessage, loading } = storeToRefs(userStore)
 .v-card {
   border: 1px solid #525252;
   color: #326ee7;
+  font-size: 1rem;
 }
 </style>

@@ -2,7 +2,6 @@ html,
 body {
   /* background: linear-gradient(to right, #5dc1f0, #20aaf4); */
   background: linear-gradient(45deg, #fafafa, #d6d6d6);
-
   font-size: 1rem;
 }
 
@@ -18,7 +17,7 @@ h6 {
 h1 {
   text-align: center;
   margin-top: 322px;
-  font-size: 3rem;
+  font-size: 2.8rem;
   line-height: 1.2;
   color: rgb(16, 16, 17);
   max-width: 30vw;
@@ -50,8 +49,8 @@ h3 {
   background-color: #326ee7;
   color: #e7e7e7;
   border-radius: 322px;
-  height: 80px;
-  width: 2500px;
+  width: 16vw;
+  height: 12vh;
   font-size: 1.5rem;
   border: 1.5px solid #242424;
   display: flex;
@@ -132,8 +131,8 @@ h3 {
   }
 
   .custom-button {
-    font-size: 2.5rem;
-    width: 40vw;
+    font-size: 1.8rem;
+    width: 35vw;
     height: 10vh;
   }
   body {
@@ -142,7 +141,7 @@ h3 {
 }
 @media (min-width: 992px) {
   h1 {
-    font-size: 3rem;
+    font-size: 2.7rem;
 
     max-width: 30vw;
   }

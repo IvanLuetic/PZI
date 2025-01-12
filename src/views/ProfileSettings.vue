@@ -1,10 +1,10 @@
 <template>
   <v-container class="py-10 d-flex justify-center">
-    <v-col cols="12" md="5">
-      <v-card>
+    <v-col cols="12" md="6">
+      <v-card class="py-8 pl-0">
         <v-card-title class="text-center">Profile Settings</v-card-title>
         <Form @submit="onSubmit" :validation-schema="schema">
-          <v-col cols="12" class="my-0">
+          <v-col cols="8" class="mx-auto">
             <Field name="username" v-slot="{ field, errors }">
               <v-text-field
                 v-bind="field"
@@ -16,7 +16,7 @@
             </Field>
           </v-col>
 
-          <v-col cols="12">
+          <v-col cols="8" class="mx-auto">
             <Field name="email" v-slot="{ field, errors }">
               <v-text-field
                 v-bind="field"
@@ -28,7 +28,7 @@
             </Field>
           </v-col>
 
-          <v-col cols="12">
+          <v-col cols="8" class="mx-auto">
             <Field name="password" v-slot="{ field, errors }">
               <v-text-field
                 v-bind="field"
@@ -41,22 +41,12 @@
             </Field>
           </v-col>
 
-          <v-col cols="12">
+          <v-col cols="8" class="mx-auto">
             <v-btn type="submit" color="#326ee7" block rounded="lg" class="text-white">
               Save
             </v-btn>
           </v-col>
         </Form>
-      </v-card>
-    </v-col>
-    <v-col cols="12" md="5">
-      <v-card>
-        <v-card-title class="text-center">Avatar</v-card-title>
-        <v-card-text>
-          <v-avatar size="150">
-            <v-img src="https://randomuser.me/api/port ... 0&noinfo" />
-          </v-avatar>
-        </v-card-text>
       </v-card>
     </v-col>
   </v-container>

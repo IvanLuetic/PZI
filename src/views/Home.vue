@@ -38,7 +38,7 @@
           </router-link>
         </div>
         <div class="button-container">
-          <router-link v-if="user" to="/SignDocument" class="no-underline"
+          <router-link v-if="user" to="/sign_document" class="no-underline"
             ><button class="custom-button">
               Get started
               <i
@@ -72,10 +72,10 @@
     </v-row>
   </v-container>
 
-  <v-container>
+  <v-container class="d-flex justify-center align-center">
     <v-row>
-      <v-col cols="12" md="5" class="d-flex justify-center">
-        <div class="image-container"><img src="@/assets/images/key.png" class="key" /></div>
+      <v-col cols="12" md="5">
+        <div><img src="@/assets/images/key.png" class="key" /></div>
       </v-col>
       <v-col cols="12" md="7" class="d-flex flex-column justify-center align-center">
         <h2>
@@ -107,6 +107,16 @@
       </v-col>
     </v-row>
   </v-container>
+
+  <v-footer class="bg-grey-lighten-3 text-center d-flex justify-center">
+    <div>
+      <v-btn variant="text"> Terms of Service</v-btn>
+
+      <v-btn variant="text"> Privacy Policy</v-btn>
+      <v-btn variant="text"> Contact</v-btn>
+      <div>{{ new Date().getFullYear() }} — University of Mostar</div>
+    </div>
+  </v-footer>
 </template>
 
 <script setup>
@@ -173,12 +183,28 @@ const { user } = storeToRefs(userStore)
   padding: 20px;
 }
 .key {
-  width: 100%;
-  height: 80%;
-  mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 100%);
+  margin-top: 2%;
+  padding: 0px;
+  width: 30vw;
+  height: 45vh;
+  mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
   border-radius: 10px;
 }
+.footer {
+  display: flex;
+  justify-content: space-between;
+  background-image: url('/footer/Bhutan.png');
+}
 
+.footer a {
+  color: inherit;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.footer a:hover {
+  text-decoration: underline; /* Add hover effect for links */
+}
 @media (max-width: 600px) {
   .h1 {
     max-width: 50vw;
@@ -191,6 +217,12 @@ const { user } = storeToRefs(userStore)
   }
   .image-container {
     height: 50vh;
+  }
+  .key {
+    mask-image: none;
+    border-radius: 0px;
+    width: 100vw;
+    height: 30vh;
   }
 }
 </style>

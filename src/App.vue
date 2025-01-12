@@ -22,11 +22,11 @@ const { loading, snackbar } = storeToRefs(userStore)
         v-show="loading"
         style="
           position: absolute;
-          top: 90px;
+
           left: 50%;
           transform: translateX(-50%);
-          width: 300px;
-          height: 300px;
+          width: 10vw;
+          height: 10vw;
         "
       >
         <v-progress-circular indeterminate color="primary" />

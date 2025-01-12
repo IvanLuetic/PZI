@@ -33,18 +33,17 @@
             <v-col cols="12" class="d-flex justify-center" style="position: relative">
               <p style="position: absolute; z-index: 1"><b>Signing your document...</b></p>
               <v-progress-linear
-                :value="progress"
-                color="black"
+                color="primary"
                 height="15"
                 class="my-6"
                 striped
                 indeterminate
                 style="
                   position: absolute;
-                  top: 50%;
+                  top: 32%;
                   left: 50%;
                   transform: translate(-50%, -50%);
-                  width: 128px;
+                  width: 14vw;
                 "
               ></v-progress-linear>
             </v-col>
@@ -80,24 +79,21 @@
     <button v-if="!isSigned" class="custom-button" @click="signDocument">Sign document</button>
     <button v-else class="custom-button">
       Download
-      <i
-        class="mdi mdi-download"
-        :style="{ fontSize: '30px', marginLeft: '3px', marginTop: '1px' }"
-      ></i>
+      <i class="mdi mdi-download" :style="{ fontSize: '1.2em' }"></i>
     </button>
   </v-container>
 </template>
 
 <script setup>
 import * as pdfjsLib from 'pdfjs-dist'
-import { ref, watchEffect } from 'vue'
+import { ref } from 'vue'
 pdfjsLib.GlobalWorkerOptions.workerSrc = '../../node_modules/pdfjs-dist/build/pdf.worker.mjs'
 
 const isUploading = ref(false)
 const file = ref(null)
 const isSigned = ref(false)
 const isSigning = ref(false)
-const progress = ref(0)
+
 const image = ref(null)
 const fileInput = ref(null)
 const uploadArea = ref(null)
@@ -181,6 +177,7 @@ const removeFileInput = () => {
   image.value = null
   isSigned.value = false
   isSigning.value = false
+  fileInput.value.value = null
 }
 
 const signDocument = async () => {
@@ -193,7 +190,7 @@ const signDocument = async () => {
           isSigned.value = true
         }
         resolve()
-      }, 2000)
+      }, 3000)
     })
   } else {
     alert('Please upload a document to sign')
@@ -209,11 +206,10 @@ const signDocument = async () => {
   align-items: center;
   min-height: 40vh;
   width: 100%;
-  height: 100%;
+
   border: 2px dashed #8c8a8a;
   position: relative;
   background-color: #d4d0d0;
-  transition: all 0.3s ease;
 }
 
 .background-image {
@@ -238,7 +234,7 @@ const signDocument = async () => {
 }
 
 canvas {
-  min-height: 280px;
+  min-height: 40vh;
   width: 100%;
   border: 2px dashed #8c8a8a;
   position: absolute;
@@ -257,6 +253,7 @@ canvas {
   width: 150%;
   height: 30vw;
   justify-content: center;
+
   border-radius: 8px;
 
   background-color: rgba(255, 255, 255, 0.6);
@@ -286,14 +283,12 @@ canvas {
 
 @media (max-width: 600px) {
   .h2 {
-    max-width: 80vw;
+    max-width: 1vw;
   }
-  .upload-area p {
-    font-size: 3.5rem;
+  .upload-area {
+    max-height: 10vh;
   }
-  .upload-area p {
-    font-size: 1.3rem;
-  }
+
   .upload-icon {
     font-size: 500%;
   }
@@ -335,24 +330,13 @@ canvas {
     height: 5vh;
   }
 }
-@keyframes backgroundChange {
-  0% {
-    background-color: #fafafa;
-  }
-  50% {
-    background-color: #e0e0e0; /* Lighter shade during upload */
-  }
-  100% {
-    background-color: #fafafa;
-  }
-}
 
 @keyframes scaleUp {
   0% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.01);
   }
   100% {
     transform: scale(1);

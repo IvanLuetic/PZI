@@ -16,10 +16,12 @@
           </router-link>
 
           <v-btn v-else @click="userStore.logout"> Log out </v-btn>
-          <v-btn v-if="user">
-            Profile
-            <v-icon left>mdi-account</v-icon>
-          </v-btn>
+          <router-link :to="'/user'" class="no-underline">
+            <v-btn v-if="user">
+              Profile
+              <v-icon left>mdi-account</v-icon>
+            </v-btn>
+          </router-link>
           <router-link to="/register" v-if="!user"> <v-btn> Register </v-btn></router-link>
         </v-col>
 
